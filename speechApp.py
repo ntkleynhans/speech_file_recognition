@@ -10,7 +10,11 @@ load_dotenv()
 
 app = Flask(__name__)
 
-@app.route('/', methods=['POST'])
+@app.route("/speech", methods=['GET'])
+def hello():
+    return "<h1 style='color:blue'>Hello There!</h1>"
+
+@app.route('/speech', methods=['POST'])
 def root():
     headers = request.headers
     auth = headers.get("X-API-KEY")
@@ -19,7 +23,7 @@ def root():
     else:
         return jsonify({"message": "Unauthorized"}), 401
 
-@app.route('/upload', methods=['POST'])
+@app.route('/speech/upload', methods=['POST'])
 def upload_file():
     headers = request.headers
     print(headers)
@@ -36,7 +40,7 @@ def upload_file():
         file.save(tf)
         return jsonify({"message": "File saved!"}), 200
 
-@app.route('/recognize', methods=['POST'])
+@app.route('/speech/recognize', methods=['POST'])
 def recognize():
     headers = request.headers
     print(headers)
@@ -75,7 +79,6 @@ def recognize():
             with open(f'/tmp/zulu/{tag}/{tag}_run_rec.json', 'w') as f:
                 json.dump(msg, f)
             return jsonify(msg), 500
-
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
