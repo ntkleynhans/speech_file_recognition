@@ -70,8 +70,8 @@ def recognize():
 
             os.system(f'python /home/ubuntu/local/scripts/ctm_to_json.py --input_file=/tmp/zulu/{tag}/{tag}.merged.ctm --output_file=/tmp/zulu/{tag}/{tag}.merged.json')
             with open(f'/tmp/zulu/{tag}/{tag}.merged.json', 'r') as f:
-                json.dump(msg, f)
-            return jsonify({"message": f"{rec_text}"}), 200
+                final_msg = json.load(f)
+            return jsonify({"message": f"{final_msg}"}), 200
 
         except subprocess.CalledProcessError as e:
             os.system(f'mv {tf} /tmp/zulu/{tag}/')
