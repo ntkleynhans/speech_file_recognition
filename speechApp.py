@@ -76,10 +76,10 @@ def recognize():
         except subprocess.CalledProcessError as e:
             os.system(f'mv {tf} /tmp/zulu/{tag}/')
             msg = {"message": "Failed to recognize", "returncode": e.returncode, "stdout": e.stdout.decode('utf-8'),
-            "stderr": e.stderr.decode('utf-8'), "cmd": e.cmd}
+            "stderr": e.stderr.decode('utf-8')}
             with open(f'/tmp/zulu/{tag}/{tag}_run_rec.json', 'w') as f:
                 json.dump(msg, f)
-            return jsonify(msg), 500
+            return jsonify(msg), 422
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
