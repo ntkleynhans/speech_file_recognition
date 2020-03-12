@@ -65,8 +65,8 @@ def recognize():
                 rec_text = f.read()
 
             os.system(f'mv {tf} /tmp/zulu/{tag}/')
-            msg = {"message": f"{rec_text}", "returncode": e.returncode, "stdout": e.stdout.decode('utf-8'),
-            "stderr": e.stderr.decode('utf-8'), "cmd": e.cmd}
+            msg = {"message": f"{rec_text}", "returncode": complete.returncode, "stdout": complete.stdout.decode('utf-8'),
+            "stderr": complete.stderr.decode('utf-8'), "cmd": complete.cmd}
             with open(f'/tmp/zulu/{tag}/{tag}_run_rec.json', 'w') as f:
                 json.dump(msg, f)
 
