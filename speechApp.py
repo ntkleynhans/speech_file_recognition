@@ -66,10 +66,11 @@ def recognize():
 
             os.system(f'mv {tf} /tmp/zulu/{tag}/')
             msg = {"message": f"{rec_text}", "returncode": complete.returncode, "stdout": complete.stdout.decode('utf-8'),
-            "stderr": complete.stderr.decode('utf-8'), "cmd": complete.cmd}
-            with open(f'/tmp/zulu/{tag}/{tag}_run_rec.json', 'w') as f:
-                json.dump(msg, f)
+            "stderr": complete.stderr.decode('utf-8')}
 
+            os.system(f'python /home/ubuntu/local/scripts/ctm_to_json.py --input_file=/tmp/zulu/{tag}/{tag}.merged.ctm --output_file=/tmp/zulu/{tag}/{tag}.merged.json')
+            with open(f'/tmp/zulu/{tag}/{tag}.merged.json', 'r') as f:
+                json.dump(msg, f)
             return jsonify({"message": f"{rec_text}"}), 200
 
         except subprocess.CalledProcessError as e:
