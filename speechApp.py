@@ -37,7 +37,7 @@ def upload_file():
         return jsonify({"message": "File saved!"}), 200
 
 @app.route('/recognize', methods=['POST'])
-def upload_file():
+def recognize():
     headers = request.headers
     print(headers)
     auth = headers.get("X-API-KEY")
